@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navegando por la Administración</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background: #f4f9fd;
+      color: #333;
+      scroll-behavior: smooth;
+      transition: filter 0.3s ease;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0077b6, #00b4d8);
+      color: #fff;
+      padding: 3rem 1rem;
+      text-align: center;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    header p {
+      margin: 0.5rem 0 0;
+      font-size: 1.2rem;
+    }
+
+    /* Barra de navegación */
+    nav {
+      background: #023e8a;
+      padding: 0.8rem 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav .logo {
+      color: #fff;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    nav .links {
+      display: flex;
+    }
+
+    nav .links a {
+      color: #fff;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav .links a:hover {
+      color: #90e0ef;
+    }
+
+    /* Botón hamburguesa */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      background: #fff;
+      height: 3px;
+      width: 25px;
+      margin: 4px;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    /* Menú lateral */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100%;
+      background: #023e8a;
+      padding-top: 60px;
+      transition: left 0.4s ease; /* Animación suave */
+      z-index: 2000;
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 15px;
+      color: #fff;
+      text-decoration: none;
+      border-bottom: 1px solid #0077b6;
+      transition: background 0.3s;
+    }
+
+    .sidebar a:hover {
+      background: #0077b6;
+    }
+
+    .sidebar.active {
+      left: 0;
+    }
+
+    /* Fondo desenfocado */
+    .blurred {
+      filter: blur(4px);
+      pointer-events: none;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 1rem;
+      animation: slideUp 1.5s ease;
+    }
+
+    h2 {
+      color: #0077b6;
+    }
+
+    .card {
+      background: #fff;
+      margin-bottom: 2rem;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .card img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+
+    footer {
+      background: #023e8a;
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    /* Botón flotante */
+    #btnTop {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #00b4d8;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      display: none;
+      transition: background 0.3s, transform 0.3s;
+      z-index: 1500;
+    }
+
+    #btnTop:hover {
+      background: #0077b6;
+      transform: scale(1.1);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav .links {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+    }
+
+    /* Animaciones */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🌊 Navegando por la Administración</h1>
+    <p>Descubre los principios, funciones y secretos de la administración</p>
+  </header>
+
+  <nav>
+    <div class="logo">📘 Blog</div>
+    <div class="links">
+      <a href="#que-es">¿Qué es?</a>
+      <a href="#importancia">Importancia</a>
+      <a href="#ciencia-arte">Ciencia, técnica y arte</a>
+      <a href="#conclusion">Conclusión</a>
+    </div>
+    <div class="menu-toggle" id="menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- Menú lateral -->
+  <div class="sidebar" id="sidebar">
+    <a href="#que-es">¿Qué es?</a>
+    <a href="#importancia">Importancia</a>
+    <a href="#ciencia-arte">Ciencia, técnica y arte</a>
+    <a href="#conclusion">Conclusión</a>
+  </div>
+
+  <!-- Contenido principal -->
+  <div id="main-content">
+    <div class="container">
+      <section id="que-es" class="card">
+        <img src="https://img.freepik.com/free-vector/business-team-leader-ship-concept_74855-6517.jpg" alt="Administración barco">
+        <h2>🚢 ¿Qué es la Administración?</h2>
+        <p>
+          La administración es el arte y la ciencia de coordinar recursos 
+          (humanos, materiales, financieros y tecnológicos) para alcanzar 
+          objetivos de manera eficiente, eficaz y efectiva.
+        </p>
+        <p>Es como dirigir un barco: planificar el destino, organizar la tripulación, guiar el viaje y corregir la ruta cuando sea necesario.</p>
+      </section>
+
+      <section id="importancia" class="card">
+        <img src="https://img.freepik.com/free-vector/importance-time-management-businessmen_1017-33617.jpg" alt="Importancia administración">
+        <h2>🌍 ¿Por qué es importante?</h2>
+        <p>
+          La administración está presente en todo:
+        </p>
+        <ul>
+          <li><b>En la empresa:</b> garantiza productividad y competitividad.</li>
+          <li><b>En la vida personal:</b> ayuda a organizar tiempo, dinero y proyectos.</li>
+          <li><b>En la sociedad:</b> permite que las instituciones funcionen correctamente.</li>
+        </ul>
+      </section>
+
+      <section id="ciencia-arte" class="card">
+        <img src="https://img.freepik.com/free-vector/creative-process-concept-illustration_114360-1543.jpg" alt="Ciencia, técnica y arte">
+        <h2>⚓ Ciencia, técnica y arte</h2>
+        <p>
+          La administración combina tres dimensiones esenciales:
+        </p>
+        <ul>
+          <li><b>Ciencia:</b> porque se basa en teorías, principios y métodos.</li>
+          <li><b>Técnica:</b> porque aplica herramientas y procedimientos.</li>
+          <li><b>Arte:</b> porque requiere creatividad, intuición y liderazgo humano.</li>
+        </ul>
+      </section>
+
+      <section id="conclusion" class="card">
+        <img src="https://img.freepik.com/free-vector/leader-ship-illustration-concept_114360-12492.jpg" alt="Conclusión administración">
+        <h2>🌟 Conclusión</h2>
+        <p>
+          Navegar por la administración es aprender a tomar decisiones inteligentes,
+          a organizar recursos limitados y a liderar con visión.
+          No importa si hablamos de una multinacional, una ONG o nuestra vida personal:
+          siempre necesitamos un capitán que sepa administrar.
+        </p>
+      </section>
+    </div>
+
+    <footer>
+      <p>📌 Blog educativo - Navegando por la Administración © 2025</p>
+    </footer>
+  </div>
+
+  <!-- Botón volver arriba -->
+  <button id="btnTop">⬆</button>
+
+  <script>
+    // Botón volver arriba
+    const btnTop = document.getElementById("btnTop");
+    window.onscroll = function() {
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        btnTop.style.display = "block";
+      } else {
+        btnTop.style.display = "none";
+      }
+    };
+    btnTop.onclick = function() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    // Menú lateral con blur
+    const menuToggle = document.getElementById("menu-toggle");
+    const sidebar = document.getElementById("sidebar");
+    const mainContent = document.getElementById("main-content");
+
+    menuToggle.onclick = function() {
+      sidebar.classList.toggle("active");
+      mainContent.classList.toggle("blurred");
+    };
+
+    // Cerrar menú al hacer clic en un enlace
+    const sidebarLinks = sidebar.querySelectorAll("a");
+    sidebarLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        sidebar.classList.remove("active");
+        mainContent.classList.remove("blurred");
+      });
+    });
+  </script>
+</body>
+</html>
